@@ -78,7 +78,109 @@ def take_user_input():
         query = 'None' # Se guarda la cadena de texto "None" en la variable query
     return query # Al finalizar, se devuelve la variable query
 
-print("")
+
+# Importamos las funciones de los archivos de funciones
+from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_trending_movies, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, send_whatsapp_message
+from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad, open_discord
+from pprint import pprint
 
 
+if __name__ == '__main__':
+    greet_user()
+    while True:
+        query = take_user_input().lower()
 
+        if 'open notepad' in query:
+            open_notepad()
+
+        elif 'open discord' in query:
+            open_discord()
+
+        elif 'open command prompt' in query or 'open cmd' in query:
+            open_cmd()
+
+        elif 'open camera' in query:
+            open_camera()
+
+        elif 'open calculator' in query:
+            open_calculator()
+
+        elif 'ip address' in query:
+            ip_address = find_my_ip()
+            speak(f"Su dirección IP es {ip_address}.\n Para su comodidad la estoy mostrando en la pantalla, señor.")
+            print(f"Su dirección IP es {ip_address}")
+
+        elif 'wikipedia' in query:
+            speak('¿Qué quiere buscar en wikipedia, señor?')
+            search_query = take_user_input().lower()
+            results = search_on_wikipedia(search_query)
+            speak(f"De acuerdo con Wikipedia, {results}")
+            speak("Para su comodidad, la estoy mostrando en la pantalla, señor.")
+            print(results)
+
+        elif 'youtube' in query:
+            speak('¿Qué quieres ver en YouTube, señor?')
+            video = take_user_input().lower()
+            play_on_youtube(video)
+
+        elif 'search on google' in query:
+            speak('¿Qué quiere buscar en Google, señor?')
+            query = take_user_input().lower()
+            search_on_google(query)
+
+        elif "send whatsapp message" in query:
+            speak('A quien le quieres enviar el mensaje, señor?')
+            number = take_user_input().lower()
+            speak("¿Qué mensaje le quieres enviar?")
+            message = take_user_input().lower()
+            send_whatsapp_message(number, message)
+            speak("El mensaje ha sido enviado, señor.")
+
+        elif "send an email" in query:
+            speak("A quien le quiere enviar el correo, señor?")
+            receiver_address = input("Escriba el correo electrónico del destinatario: ")
+            speak("¿Cual es el asunto?")
+            subject = take_user_input().capitalize()
+            speak("¿Cual es el mensaje")
+            message = take_user_input().capitalize()
+            if send_email(receiver_address, subject, message):
+                speak("El correo ha sido enviado, señor.")
+            else:
+                speak("Algo ha salido mal mientras estaba enviando el correo, por favor revise el registro de errores")
+
+        elif 'joke' in query:
+            speak(f"Espero le guste este, señor")
+            joke = get_random_joke()
+            speak(joke)
+            speak("Para su comodidad, la estoy mostrando en la pantalla, señor.")
+            pprint(joke)
+
+        elif "advice" in query:
+            speak(f"Aqui está, señor")
+            advice = get_random_advice()
+            speak(advice)
+            speak("Para su comodidad, la estoy mostrando en la pantalla, señor.")
+            pprint(advice)
+
+        elif "trending movies" in query:
+            speak(f"Algunas de las peliculas en tendencia son: {get_trending_movies()}")
+            speak("Para su mejor comprensión, las estoy mostrando en la pantalla, señor.")
+            print(*get_trending_movies(), sep = '\n')
+
+
+        elif "news" in query:
+            speak(f"Estoy leyendo los ultimos titulares de las noticias")
+            speak(get_latest_news())
+            speak("Para su comodidad, las mostraré en pantalla, señor")
+            print(*get_latest_news(), sep = '\n')	
+
+        elif "weather" in query:
+            ip_address = find_my_ip()
+            city = requests.get(f"https://ipapi.co/{ip_address}/city/").text
+            speak(f"Obteniendo el reporte del clima en su ciudad {city}")
+            weather, temperature, feels_like = get_weather_report(city)
+            speak(f"La temperatura actual es {temperature} grados centigrados, pero se siente más como {feels_like} grados centigrados")
+            speak(f"Además, el reporte menciona acerca de {weather}")
+            speak("Para vuestra información, se la mostraré en pantalla, señor")
+            print(f"Reporte del clima de {city}:\n {weather}\nTemperatura actual: {temperature}°C\nSensación térmica: {feels_like}°C")
+            
