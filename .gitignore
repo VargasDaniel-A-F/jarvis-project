@@ -2,3 +2,5 @@
 Lib
 Scripts
 pyenv.cfg
+.env
+
