@@ -80,13 +80,9 @@ def take_user_input():
 
 
 # Importamos las funciones de los archivos de funciones
-<<<<<<< HEAD
+import requests
 from Functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_trending_movies, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, send_whatsapp_message
 from Functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad, open_discord
-=======
-from functions.online_ops import find_my_ip, get_latest_news, get_random_advice, get_random_joke, get_trending_movies, get_weather_report, play_on_youtube, search_on_google, search_on_wikipedia, send_email, send_whatsapp_message
-from functions.os_ops import open_calculator, open_camera, open_cmd, open_notepad, open_discord
->>>>>>> eed174528447bb17880ce2b2566e424175a909d5
 from pprint import pprint
 
 
@@ -188,10 +184,7 @@ if __name__ == '__main__':
             speak(f"Además, el reporte menciona acerca de {weather}")
             speak("Para vuestra información, se la mostraré en pantalla, señor")
             print(f"Reporte del clima de {city}:\n {weather}\nTemperatura actual: {temperature}°C\nSensación térmica: {feels_like}°C")
-<<<<<<< HEAD
 
         elif "turn off" in query:
             break
-=======
->>>>>>> eed174528447bb17880ce2b2566e424175a909d5
             
